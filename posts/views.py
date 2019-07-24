@@ -30,5 +30,20 @@ def create(request):
         return render(request, 'posts/create.html')
 
 def detail(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
-    return render(request, 'posts/detail.html', {'post': post})
+    if request.method == 'POST':
+        post = get_object_or_404(Post, pk=post_id)
+        all_upvoted_users = post.upvoted_users.split(',')
+        print(all_upvoted_users,request.user.username)
+        if str(request.user.username) in all_upvoted_users:
+            return render(request, 'posts/detail.html', {'post': post,'error':'You have already upvoted'})
+
+        else:
+            post.votes_total += 1
+            current_user = request.user
+            post.upvoted_users = post.upvoted_users + current_user.username + ','
+            post.save()
+            return render(request, 'posts/detail.html', {'post': post})
+
+    else:
+        post = get_object_or_404(Post, pk=post_id)
+        return render(request, 'posts/detail.html', {'post': post})

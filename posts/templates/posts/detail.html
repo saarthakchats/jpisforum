@@ -5,6 +5,17 @@
 <div class="container p-5">
   <h1 class="display-4">{{ post.title }}</h1>
   <p>{{ post.body }}</p>
+
+  <form class="" action="{% url 'detail' post.id %}" method="post">
+  {% csrf_token %}
+    <input class='btn-lg'type="submit" name="button"></input>
+    {{ post.votes_total }}
+  </form>
+  {% if error %}
+  {{ error }}
+  {% endif %}
+
   {% endblock %}
+
 
 </div>

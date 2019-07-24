@@ -8,6 +8,7 @@ class Post(models.Model):
     pubdate = models.DateTimeField()
     hunter = models.ForeignKey(User, on_delete=models.CASCADE)
     anonymous = models.BooleanField(default=False)
+    upvoted_users = models.TextField(default='')
 
     def __str__(self):
         return self.title
