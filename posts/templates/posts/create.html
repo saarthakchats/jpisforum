@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<br>
+<h1 align=center>Create</h1>
+<hr>
+{% if error %}
+<b> {{ error }} </b>
+<br><br>
+{% endif %}
+<form action="{% url 'create' %}" method="POST">
+  {% csrf_token %}
+  <h4>Title:</h4>
+  <input type="text" name="title" placeholder="Enter Title:"><br>
+  <h4>Body:</h4>
+  <textarea name="body" rows="8" cols="80"></textarea>
+  <br>
+
+  <input type='hidden' value='n' name='poi'>
+  <input type="checkbox" name="poi" value="y"><label for="poi"><h6> Do you want to post this anonymously?  </h6></label>
+  <br>
+  <br>
+
+  <input type="submit" name="" value="Post!" class="btn btn-primary">
+
+
+</form>
+{% endblock %}

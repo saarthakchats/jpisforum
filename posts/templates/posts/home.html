@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<br>
+
+<h1 align=center class="display-4">Welcome to the JPIS Forum!</h1>
+
+
+<hr>
+{% for post in posts.all %}
+<div class="card">
+  <div class="card-header">
+    {% if post.anonymous %}
+    <h5>Sparked by <a href="#">anonymous</a></h5>
+    {% else %}
+    <h5>Sparked by <a href="#">@{{ post.hunter }}</a></h5>
+    {% endif %}
+
+  </div>
+  <div class="card-body p-5">
+    <a href="{% url 'detail' post.id %}"><h1 class="card-title">{{ post.title }}</h1></a>
+    <p class="card-text">{{ post.preview }} ...</p>
+    <br>
+    <p class="text-muted medium">{{ post.pretty_date }}</p>
+  </div>
+
+</div>
+<br>
+{% endfor %}
+{% endblock %}
