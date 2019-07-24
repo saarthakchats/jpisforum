@@ -9,7 +9,8 @@ def signup(request):
                 user = User.objects.get(username=request.POST['username'])
                 return render(request, 'accounts/signup.html', {'error': 'Username has been taken'})
             except User.DoesNotExist:
-                user = User.objects.create_user(request.POST['username'], password=request.POST['password'])
+                mail = request.POST['email'] + '@jpischool.com'
+                user = User.objects.create_user(request.POST['username'], password=request.POST['password'], email=mail)
                 auth.login(request, user)
                 return redirect('home')
         else:
