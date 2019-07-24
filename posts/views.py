@@ -4,7 +4,7 @@ from django.utils import timezone
 from .models import Post
 from django.contrib.auth.models import User
 def home(request):
-    posts = Post.objects
+    posts = Post.objects.all().order_by('-votes_total')
     return render(request, 'posts/home.html', {'posts': posts})
 
 @login_required(login_url='/accounts/signup')
