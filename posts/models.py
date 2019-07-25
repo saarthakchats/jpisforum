@@ -9,6 +9,7 @@ class Post(models.Model):
     hunter = models.ForeignKey(User, on_delete=models.CASCADE)
     anonymous = models.BooleanField(default=False)
     upvoted_users = models.TextField(default='')
+    post_approved = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

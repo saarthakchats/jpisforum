@@ -5,8 +5,13 @@ from .models import Post
 from django.contrib.auth.models import User
 def home(request):
     if request.user.is_authenticated:
-        posts = Post.objects.all().order_by('-votes_total')
-        return render(request, 'posts/home.html', {'posts': posts})
+
+        if request.user.is_staff:
+            posts = Post.objects.all().order_by('-votes_total')
+            return render(request, 'posts/home.html', {'posts': posts})
+        else:
+            posts = Post.objects.all().order_by('-votes_total').filter(post_approved=True)
+            return render(request, 'posts/home.html', {'posts': posts})
     else:
         return render(request, 'posts/landing.html')
 

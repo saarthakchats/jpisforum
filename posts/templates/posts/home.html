@@ -6,7 +6,7 @@
 {% load staticfiles %}
 <h1 align=center class="display-4">Welcome to the JPIS Forum!</h1>
 
-<img src="{% static 'images/mainlanding.jpeg' %}" alt="">
+<!-- <img src="{% static 'images/mainlanding.jpeg' %}" alt=""> -->
 <hr>
 {% for post in posts.all %}
 <div class="card">
@@ -27,5 +27,6 @@
 
 </div>
 <br>
+
 {% endfor %}
 {% endblock %}
