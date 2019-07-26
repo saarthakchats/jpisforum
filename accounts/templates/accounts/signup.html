@@ -1,35 +1,313 @@
-{% extends 'base.html' %}
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>JPIS Forum</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
+    <link href="{% static 'open-iconic/font/css/open-iconic-bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+<link href="/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+</script>
+<style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+:root {
+  --input-padding-x: 1.5rem;
+  --input-padding-y: 0.75rem;
+}
+
+.login,
+.image {
+  min-height: 100vh;
+}
+
+body{
+  background-image: url({% static 'images/login.jpg' %});
+  background-size: cover;
+  overflow: hidden;
+}
+
+.login-heading {
+  font-weight: 300;
+}
+
+.btn-login {
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  padding: 0.75rem 1rem;
+  border-radius: 2rem;
+}
+
+.form-label-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.form-label-group>input,
+.form-label-group>label {
+  padding: var(--input-padding-y) var(--input-padding-x);
+  height: auto;
+  border-radius: 2rem;
+}
+
+.form-label-group>label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+  /* Override default `<label>` margin */
+  line-height: 1.5;
+  color: #495057;
+  cursor: text;
+  /* Match the input under the label */
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  transition: all .1s ease-in-out;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::placeholder {
+  color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+  padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+  padding-bottom: calc(var(--input-padding-y) / 3);
+}
+
+.form-label-group input:not(:placeholder-shown)~label {
+  padding-top: calc(var(--input-padding-y) / 3);
+  padding-bottom: calc(var(--input-padding-y) / 3);
+  font-size: 12px;
+  color: #777;
+}
 
 
-{% block content %}
 
 
+/* Fallback for Edge
+-------------------------------------------------- */
 
-<br>
-<h1 align=center>Sign Up</h1>
-<hr>
-{% if error %}
-<b> {{ error }} </b>
-<br><br>
-{% endif %}
-<form action="{% url 'signup' %}" method="POST">
-  {% csrf_token %}
-  <h4>Username:</h4>
-  <input type="text" name="username" placeholder="Enter Username"><br>
-  <h4>email:</h4>
-  <div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="email" name="email" aria-describedby="basic-addon2">
-  <div class="input-group-append">
-    <span class="input-group-text" id="basic-addon2">@jpischool.com</span>
+@supports (-ms-ime-align: auto) {
+  .form-label-group>label {
+    display: none;
+  }
+  .form-label-group input::-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+/* Fallback for IE
+-------------------------------------------------- */
+
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+  .form-label-group>label {
+    display: none;
+  }
+  .form-label-group input:-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+.firm-label-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.firm-label-group>input,
+.firm-label-group>label {
+  padding: var(--input-padding-y) var(--input-padding-x);
+  height: auto;
+  border-radius: 2rem;
+}
+
+.firm-label-group>label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+  /* Override default `<label>` margin */
+  line-height: 1.5;
+  color: #495057;
+  cursor: text;
+  /* Match the input under the label */
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  transition: all .1s ease-in-out;
+}
+
+.firm-label-group input::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.firm-label-group input:-ms-input-placeholder {
+  color: transparent;
+}
+
+.firm-label-group input::-ms-input-placeholder {
+  color: transparent;
+}
+
+.firm-label-group input::-moz-placeholder {
+  color: transparent;
+}
+
+.firm-label-group input::placeholder {
+  color: transparent;
+}
+
+
+.firm-label-group input:not(:placeholder-shown)~label {
+  padding-top: calc(var(--input-padding-y) / 3);
+  padding-bottom: calc(var(--input-padding-y) / 3);
+  font-size: 12px;
+  color: #777;
+}
+
+.input-group-text{
+  border-radius: .25rem;
+}
+
+
+/* Fallback for Edge
+-------------------------------------------------- */
+
+@supports (-ms-ime-align: auto) {
+  .firm-label-group>label {
+    display: none;
+  }
+  .firm-label-group input::-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+/* Fallback for IE
+-------------------------------------------------- */
+
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+  .firm-label-group>label {
+    display: none;
+  }
+  .firm-label-group input:-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+</style>
+
+  </head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent pr-5 pl-5">
+  <a class="navbar-brand" href="{% url 'home' %}">JPIS Forum</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav ml-auto">
+      {% if user.is_authenticated %}
+      <form id="log" action="{% url 'logout' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="" value="">
+        <a class="nav-item nav-link" href="javascript:{document.getElementById('log').submit()}">Logout</a>
+      </form>
+      <a class="nav-item nav-link" href="{% url 'create' %}">Create Post</a>
+      {% else %}
+      <a class="nav-item nav-link active" href="{% url 'signup' %}">Sign Up</a>
+      <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+      {% endif %}
+    </div>
+  </div>
+  </nav>
+<div class="container">
+  <div class="row no-gutter">
+    <div class=""></div>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              {% if error %}
+              <b> {{ error }} </b>
+              <br><br>
+              {% endif %}
+              <h3 class="login-heading mb-4 text-white"><strong>Welcome to the JPIS Forum!</strong></h3>
+              <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-label-group">
+                  <input id="emails" type="email" name="email" class="form-control" placeholder="Enter Email" required >
+                  <label for="emails">yourmail@jpischool.com</label>
+                </div>
+                <div class="form-label-group">
+                  <input id="usernames" type="text" name="username" class="form-control" placeholder="Enter Username" required >
+                  <label for="usernames">Username</label>
+                </div>
+                <div class="form-label-group">
+                  <input id="passwords"type="password" class="form-control" name="password" placeholder="Enter password" required>
+                  <label for="passwords">Password</label>
+                </div>
+                <div class="firm-label-group">
+                  <input type="submit" name="" value="Sign Up" class="btn btn-lg btn-primary btn-block btn-login font-weight-bold mb-1">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-  <!-- <input type="text" name="username" placeholder="Enter Username"><br> -->
-  <h4>Password:</h4>
-  <input type="password" name="password" placeholder="Enter password"><br>
-  <h4>Confirm Password:</h4>
-  <input type="password" name="confirmpass" placeholder="Confirm Password"><br/><br>
-  <input type="submit" name="" value="SignUp" class="btn btn-primary">
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js">
 
-</form>
-{% endblock %}
+</script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js'>
+
+</script>
+</body>
+</html>
