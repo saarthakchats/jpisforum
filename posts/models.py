@@ -15,6 +15,6 @@ class Post(models.Model):
         return self.title
 
     def preview(self):
-        return self.body[:250]
+        return self.body[:150]
     def pretty_date(self):
         return self.pubdate.strftime('%b %e, %Y')

@@ -1,4 +1,3 @@
-
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Clean Blog - Start Bootstrap Theme</title>
+  <title>JPIS Forum</title>
 
   <!-- Bootstrap core CSS -->
   <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -24,51 +23,44 @@
   <!-- Custom styles for this template -->
   <link href="{% static 'css/clean-blog.css' %}" rel="stylesheet">
 <style media="screen">
-  header{
-    background-image: url("https://www.pexels.com/photo/aerial-view-of-seashore-near-large-grey-rocks-853199/");
-    /* background-image: url({% static 'images/login.jpg' %}); */
-  }
-  /* .masthead{
-    background-image: url({% static 'images/login.jpg' %})
-  } */
 </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
-  <div class="container">
-  <a class="navbar-brand nav-item-lg active" href="{% url 'home' %}"><h3>JPIS Forum</h3></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  <div class="collapse navbar-collapse" id="navbarResponsive">
-    <ul class="navbar-nav ml-auto">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark pr-5 pl-5">
+  <a class="navbar-brand" href="{% url 'home' %}">JPIS Forum</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav ml-auto">
+      {% if user.is_authenticated %}
       <form id="log" action="{% url 'logout' %}" method="POST">
         {% csrf_token %}
-          <input type="hidden" name="" value="">
-      <li class="nav-item">
-        <a class="nav-link" href="javascript:{document.getElementById('log').submit()}">Logout</a>
-      </li>
-        </form>
-      <li class="nav-item ">
-        <a class="nav-link" href="{% url 'create' %}">Create Post</a>
-      </li>
-    </ul>
-  </div>
+        <input type="hidden" name="" value="">
+        <a class="nav-item nav-link" href="javascript:{document.getElementById('log').submit()}">Logout</a>
+      </form>
+      <a class="nav-item nav-link" href="{% url 'create' %}">Create Post</a>
+      {% else %}
+      <a class="nav-item nav-link active" href="{% url 'signup' %}">Sign Up</a>
+      <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+      {% endif %}
+    </div>
   </div>
   </nav>
 
 
 
 
-  <header class="masthead" >
+  <header class="masthead" style="background-image: url({% static 'images/posts.jpg' %})">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
-            <h1>All posts</h1>
-            <span class="subheading">Your upvote matters the most</span>
+            <h1>JPIS Forum</h1>
+            <br>
+            <span class="subheading">{{ user.username }}</span>
           </div>
         </div>
       </div>
@@ -77,6 +69,9 @@
 
   <!-- Main Content -->
   <div class="container">
+    {% if error %}
+    <h3 align='center'>No Posts to show :(</h3>
+    {% endif %}
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         {% for post in posts.all %}
@@ -101,51 +96,13 @@
 
         <hr>
         {% endfor %}
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-        </div>
       </div>
     </div>
   </div>
 
   <hr>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <ul class="list-inline text-center">
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-          </ul>
-          <p class="copyright text-muted">Copyright &copy; Your Website 2019</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+
 
   <!-- Bootstrap core JavaScript -->
   <!-- <script src="vendor/jquery/jquery.min.js"></script>

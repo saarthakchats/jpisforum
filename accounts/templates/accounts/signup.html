@@ -272,11 +272,13 @@ body{
           <div class="row">
             <div class="col-md-9 col-lg-8 mx-auto">
               {% if error %}
-              <b> {{ error }} </b>
+              <h4 style="color: white;">
+              <b> {{ error }} </b></h4>
+
               <br><br>
               {% endif %}
               <h3 class="login-heading mb-4 text-white"><strong>Welcome to the JPIS Forum!</strong></h3>
-              <form action="{% url 'login' %}" method="POST">
+              <form action="{% url 'signup' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-label-group">
                   <input id="emails" type="email" name="email" class="form-control" placeholder="Enter Email" required >
@@ -287,8 +289,12 @@ body{
                   <label for="usernames">Username</label>
                 </div>
                 <div class="form-label-group">
-                  <input id="passwords"type="password" class="form-control" name="password" placeholder="Enter password" required>
+                  <input id="passwords"type="password" class="form-control" minlength='8' name="password" placeholder="Enter password" required>
                   <label for="passwords">Password</label>
+                </div>
+                <div class="form-label-group">
+                  <input id="conpasswords"type="password" class="form-control" name="confirmpass" placeholder="Enter password" required>
+                  <label for="conpasswords">Confirm Password</label>
                 </div>
                 <div class="firm-label-group">
                   <input type="submit" name="" value="Sign Up" class="btn btn-lg btn-primary btn-block btn-login font-weight-bold mb-1">

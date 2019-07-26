@@ -11,7 +11,11 @@ def home(request):
             return render(request, 'posts/home.html', {'posts': posts})
         else:
             posts = Post.objects.all().order_by('-votes_total').filter(post_approved=True)
-            return render(request, 'posts/home.html', {'posts': posts})
+            if len(posts) == 0:
+                error = True
+            else:
+                error = False
+            return render(request, 'posts/home.html', {'posts': posts, 'error': error})
     else:
         return render(request, 'posts/landing.html')
 
