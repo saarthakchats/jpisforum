@@ -242,25 +242,22 @@ body{
 
   </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent pr-5 pl-5">
-  <a class="navbar-brand" href="{% url 'home' %}">JPIS Forum</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav ml-auto">
-      {% if user.is_authenticated %}
-      <form id="log" action="{% url 'logout' %}" method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="" value="">
-        <a class="nav-item nav-link" href="javascript:{document.getElementById('log').submit()}">Logout</a>
-      </form>
-      <a class="nav-item nav-link" href="{% url 'create' %}">Create Post</a>
-      {% else %}
-      <a class="nav-item nav-link active" href="{% url 'signup' %}">Sign Up</a>
-      <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-      {% endif %}
-    </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
+  <div class="container">
+  <a class="navbar-brand nav-item-lg active" href="{% url 'home' %}"><h3>JPIS Forum</h3></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'signup' %}">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+    </ul>
+  </div>
   </div>
   </nav>
 <div class="container">
@@ -281,8 +278,11 @@ body{
               <form action="{% url 'signup' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-label-group">
-                  <input id="emails" type="email" name="email" class="form-control" placeholder="Enter Email" required >
+                  <input id="emails" type="email" name="email" class="form-control" pattern=".+jpischool.com" placeholder="Enter Email" required >
                   <label for="emails">yourmail@jpischool.com</label>
+                </div>
+                <div class="firm-label-group">
+                  <input type="submit" name="" value="Send OTP" class="btn btn-lg btn-outline-light btn-block btn-login font-weight-bold mb-1" cursor=pointer>
                 </div>
                 <div class="form-label-group">
                   <input id="usernames" type="text" name="username" class="form-control" placeholder="Enter Username" required >
@@ -307,7 +307,6 @@ body{
     </div>
   </div>
 </div>
-
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js">
 
