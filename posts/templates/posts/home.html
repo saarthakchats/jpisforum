@@ -88,22 +88,17 @@
             {% if post.anonymous %}
             <a href="#">Anonymous</a>
             {% else %}
-            <a href="#">{{ post.hunter }}</a>
+            <a href="{% url 'userpage' user.username %}">{{ post.hunter }}</a>
             {% endif %}
 
             on {{ post.pretty_date }}</p>
         </div>
-
         <hr>
         {% endfor %}
       </div>
     </div>
   </div>
-
   <hr>
-
-
-
   <!-- Bootstrap core JavaScript -->
   <!-- <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->

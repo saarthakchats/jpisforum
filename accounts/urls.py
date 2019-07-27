@@ -4,4 +4,5 @@ urlpatterns = [
     path('signup', views.signup, name='signup'),
     path('login', views.login, name='login'),
     path('logout', views.logout, name='logout'),
+    path('<slug:user_name>', views.userpage, name='userpage'),
 ]
