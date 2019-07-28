@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Register
@@ -70,3 +70,7 @@ def verifyOTP(request):
     else:
         error = 'Incorrect OTP'
         return render(request,'accounts/verifyOTP.html', {'error':error})
+
+def userpage(request, user_name):
+    man = get_object_or_404(User, username=user_name)
+    return render(request, 'accounts/userpage.html', {'user': man})
