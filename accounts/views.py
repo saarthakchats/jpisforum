@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
+from .models import Register
+import datetime
+import smtplib
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
@@ -11,8 +14,13 @@ def signup(request):
             except User.DoesNotExist:
                 mail = request.POST['email']
                 user = User.objects.create_user(request.POST['username'], password=request.POST['password'], email=mail)
-                auth.login(request, user)
-                return redirect('home')
+                global sign_up_code
+                sign_up_code = genOTP(mail)
+                register = Register(user=user, OTP=sign_up_code)
+                register.save()
+                # auth.login(request, user)
+                print(sign_up_code)
+                return render(request,'accounts/verifyOTP.html')
         else:
             return render(request, 'accounts/signup.html', {'error': "Passwords don't match"})
     else:
@@ -22,8 +30,11 @@ def login(request):
     if request.method == 'POST':
         user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
         if user is not None:
-            auth.login(request, user)
-            return redirect('home')
+            if user.register.IsVerified:
+                auth.login(request, user)
+                return redirect('home')
+            else:
+                return render(request, 'accounts/login.html', {'error': "Your account was not verified and is deleted for security reasons"})
         else:
             return render(request, 'accounts/login.html', {'error': "User not found"})
     else:
@@ -33,3 +44,29 @@ def logout(request):
     if request.method == 'POST':
         auth.logout(request)
         return redirect('home')
+
+def genOTP(mail):
+    multiplier1 = str(datetime.datetime.now()).split('.')[1]
+    multiplier2 = str(len(mail) % 100)
+    OTP = int(multiplier1+multiplier2)
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login('jpisforum@gmail.com', 'samshi52')
+    # message = "Your OTP is " + id
+    message = "Your OTP is " + str(OTP) + "\nPlease do not log in to your account without OTP verification" + "\ndoing so will result in immediate deletion of your account." + "\nThis is done for security reasons, we regret any inconvinience caused."
+    server.sendmail('samyakjainbvs@gmail.com',mail, message)
+    return OTP
+
+def verifyOTP(request):
+    global sign_up_code
+    print(int(request.POST['OTP']),sign_up_code)
+    if int(request.POST['OTP']) == sign_up_code:
+        current_register = Register.objects.get(OTP=sign_up_code)
+        user = User.objects.get(register=current_register)
+        current_register.IsVerified = True
+        current_register.save()
+        auth.login(request, user)
+        return redirect('home')
+    else:
+        error = 'Incorrect OTP'
+        return render(request,'accounts/verifyOTP.html', {'error':error})

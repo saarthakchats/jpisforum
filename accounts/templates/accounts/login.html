@@ -109,6 +109,9 @@ body{
 .form-label-group input::-ms-input-placeholder {
   color: transparent;
 }
+.error{
+  color: white;
+}
 
 .form-label-group input::-moz-placeholder {
   color: transparent;
@@ -274,7 +277,7 @@ body{
           <div class="row">
             <div class="col-md-9 col-lg-8 mx-auto">
               {% if error %}
-              <b> {{ error }} </b>
+              <b class="error"> {{ error }} </b>
               <br><br>
               {% endif %}
               <h3 class="login-heading mb-4 text-white"><strong>Welcome back!</strong></h3>
