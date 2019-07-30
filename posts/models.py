@@ -10,6 +10,7 @@ class Post(models.Model):
     anonymous = models.BooleanField(default=False)
     upvoted_users = models.TextField(default='')
     post_approved = models.BooleanField(default=False)
+    post_considered =  models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

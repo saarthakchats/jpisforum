@@ -1,1 +1,132 @@
-<h1>{{ user.username }}</h1>
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>JPIS Forum</title>
+
+  <!-- Bootstrap core CSS -->
+  <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/clean-blog.css' %}" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style media="screen">
+  .dropdown-item:hover{
+    background-color: grey;
+  }
+</style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark pr-5 pl-5">
+  <a class="navbar-brand" href="{% url 'home' %}"><i class="fa fa-cog fa-spin fa-lg fa-fw"></i> JPIS Forum</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav ml-auto">
+      {% if user.is_authenticated %}
+
+
+          <form id="log" action="{% url 'logout' %}" method="POST" >
+            {% csrf_token %}
+            <input type="hidden" name="" value="">
+            <a class="nav-item nav-link" href="javascript:{document.getElementById('log').submit()}">Logout</a>
+          </form>
+          <a class="nav-item nav-link" href="{% url 'create' %}">Post</a>
+          <span></span>
+          <a class="nav-item nav-link" href="{% url 'userpage' user.username %}"><i class="fa fa-user fa-lg"></i></a>
+      {% else %}
+      <a class="nav-item nav-link" href="{% url 'signup' %}">Sign Up</a>
+      <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+      {% endif %}
+    </div>
+  </div>
+  </nav>
+
+
+
+
+  <header class="masthead" style="background-image: url({% static 'images/posts.jpg' %})">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>{{ man.username }}</h1>
+            <br>
+            <span class="subheading">Posts: {{ num_posts }} , Considered: {{ num_considered_posts }}, Other: {{ num_other_posts }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    {% if error %}
+    <h3 align='center'>No Posts to show :(</h3>
+    {% endif %}
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% for post in posts.all %}
+        <div class="post-preview">
+          <a href="{% url 'detail' post.id %}">
+            <h2 class="post-title">
+              {{ post.title }}
+            </h2>
+            <h6 class="text-small" style="color:green;">
+              {% if user.is_staff %}
+              {% if post.post_approved %}
+              This post is approved
+              {% endif %}
+              {% endif %}
+            </h6>
+            <h3 class="post-subtitle">
+              {{ post.preview }}...
+            </h3>
+          </a>
+          <p class="post-meta">Posted by
+            {% if post.anonymous %}
+            <a href="#">Anonymous</a>
+            {% else %}
+            <a href="{% url 'userpage' post.hunter %}">{{ post.hunter }}</a>
+            {% endif %}
+
+            on {{ post.pretty_date }}</p>
+        </div>
+        <hr>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- Bootstrap core JavaScript -->
+  <!-- <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js">
+
+  </script>
+  <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js'>
+
+  </script>
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'js/clean-blog.min.js' %}"></script>
+
+</body>
+
+</html>

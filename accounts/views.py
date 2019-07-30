@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Register
+from posts.models import Post
 import datetime
 import smtplib
 from django.core.mail import send_mail
@@ -73,4 +74,11 @@ def verifyOTP(request):
 
 def userpage(request, user_name):
     man = get_object_or_404(User, username=user_name)
-    return render(request, 'accounts/userpage.html', {'user': man})
+    posts = Post.objects.all().filter(hunter=man)
+    considered_posts = Post.objects.all().filter(hunter=man,post_considered=True)
+    other_posts = Post.objects.all().filter(hunter=man,post_considered=False)
+    num_posts = len(posts)
+    num_considered_posts = len(considered_posts)
+    num_other_posts = len(other_posts)
+
+    return render(request, 'accounts/userpage.html', {'man': man,'posts':posts,'num_posts':num_posts,'num_considered_posts':num_considered_posts,'num_other_posts':num_other_posts})
