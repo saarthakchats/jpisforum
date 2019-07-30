@@ -20,7 +20,6 @@ def signup(request):
                 sign_up_code = genOTP(mail)
                 register = Register(user=user, OTP=sign_up_code)
                 register.save()
-                # auth.login(request, user)
                 print(sign_up_code)
                 return render(request,'accounts/verifyOTP.html')
         else:

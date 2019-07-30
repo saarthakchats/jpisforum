@@ -61,3 +61,12 @@ def detail(request, post_id):
     else:
         post = get_object_or_404(Post, pk=post_id)
         return render(request, 'posts/detail.html', {'post': post})
+
+def approve(request, post_id):
+    if request.method == 'POST':
+        post = get_object_or_404(Post, pk=post_id)
+        post.post_approved = True
+        post.save()
+        return render(request, 'posts/detail.html', {'post': post})
+    else:
+            return render(request, 'posts/home.html')
