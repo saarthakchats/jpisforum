@@ -4,6 +4,8 @@ from django.contrib import auth
 from .models import Register
 import datetime
 import smtplib
+from django.core.mail import send_mail
+from django.conf import settings
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
@@ -49,12 +51,11 @@ def genOTP(mail):
     multiplier1 = str(datetime.datetime.now()).split('.')[1]
     multiplier2 = str(len(mail) % 100)
     OTP = int(multiplier1+multiplier2)
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.starttls()
-    server.login('jpisforum@gmail.com', 'samshi52')
-    # message = "Your OTP is " + id
-    message = "Your OTP is " + str(OTP) + "\nPlease do not log in to your account without OTP verification" + "\ndoing so will result in immediate deletion of your account." + "\nThis is done for security reasons, we regret any inconvinience caused."
-    server.sendmail('samyakjainbvs@gmail.com',mail, message)
+    subject = 'Your OTP'
+    message = str(OTP)
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [mail,]
+    send_mail( subject, message, email_from, recipient_list )
     return OTP
 
 def verifyOTP(request):

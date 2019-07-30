@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Post
 from django.contrib.auth.models import User
+
 def home(request):
     if request.user.is_authenticated:
 
