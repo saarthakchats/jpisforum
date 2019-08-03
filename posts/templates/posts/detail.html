@@ -1,14 +1,157 @@
-{% extends 'base.html' %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>JPIS Forum</title>
+
+  <!-- Bootstrap core CSS -->
+  <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/clean-blog.css' %}" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style media="screen">
+  .dropdown-item:hover{
+    background-color: grey;
+  }
+  .fade-in {
+  animation: fadeIn ease 5s;
+  -webkit-animation: fadeIn ease 5s;
+  -moz-animation: fadeIn ease 5s;
+  -o-animation: fadeIn ease 5s;
+  -ms-animation: fadeIn ease 5s;
+}
 
 
-{% block content %}
-<div class="container p-5">
-  <h1 class="display-4">{{ post.title }}</h1>
-  <p>{{ post.body }}</p>
+@keyframes fadeIn{
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
 
+@-moz-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+</style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
+<div class="container">
+  <a class="navbar-brand nav-item-lg active" href="{% url 'home' %}"><h3>JPIS Forum</h3></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav ml-auto">
+      {% if user.is_authenticated %}
+
+
+          <form id="log" action="{% url 'logout' %}" method="POST" >
+            {% csrf_token %}
+            <input type="hidden" name="" value="">
+            <li class="nav-item">
+            <a class="nav-link" href="javascript:{document.getElementById('log').submit()}">Logout</a>
+          </li>
+          </form>
+            <li class="nav-item">
+          <a class="nav-link" href="{% url 'create' %}">Post</a>
+        </li>
+          <span></span>
+            <li class="nav-item">
+          <a class="nav-link" href="{% url 'userpage' user.username %}"><i class="fa fa-user fa-lg"></i></a>
+        </li>
+      {% else %}
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+    </ul>
+    {% endif %}
+  </div>
+</div>
+</nav>
+
+
+
+
+  <header class="masthead" style="background-image: url({% static 'images/about-bg.jpg' %})">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <br>
+            <br>
+            <h1>{{ post.title }}</h1>
+            <br>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+<div class="container p-3" style="border-style: solid; border-width: 0.04px;">
+
+  <p align=center class="display-5 p-1" >{{ post.body }}</p>
+<div align=center style="padding-top: 50px;">
   <form class="" action="{% url 'detail' post.id %}" method="post">
   {% csrf_token %}
-    <input class='btn btn-primary btn-lg'type="submit" name="button" value="Upvote {{ post.votes_total }}">
+    <input class='btn btn-outline-primary'type="submit" name="button" value="Upvote {{ post.votes_total }}" style="border-radius:1;">
 
   </form>
   <br>
@@ -16,14 +159,15 @@
   {% if post.post_approved == False %}
   <form class="" action="{% url 'approve' post.id %}" method="post">
   {% csrf_token %}
-    <input class='btn btn-success btn-lg' type="submit" name="button2" value="Approve">
+    <input class='btn btn-outline-success' type="submit" name="button2" value="Approve" style="border-radius:1;">
 
   </form>
+</div>
   {% endif %}
   {% endif %}
-  <br>
   {% if error %}
   {{ error }}
   {% endif %}
-  {% endblock %}
 </div>
+</body>
+</html>

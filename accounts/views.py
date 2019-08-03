@@ -74,7 +74,7 @@ def verifyOTP(request):
 
 def userpage(request, user_name):
     man = get_object_or_404(User, username=user_name)
-    posts = Post.objects.all().filter(hunter=man)
+    posts = Post.objects.all().filter(hunter=man, post_approved=True)
     considered_posts = Post.objects.all().filter(hunter=man,post_considered=True)
     other_posts = Post.objects.all().filter(hunter=man,post_considered=False)
     num_posts = len(posts)
