@@ -35,6 +35,9 @@
   -o-animation: fadeIn ease 5s;
   -ms-animation: fadeIn ease 5s;
 }
+.btn{
+  width: 150px;
+}
 
 
 @keyframes fadeIn{
@@ -80,6 +83,10 @@
   100% {
     opacity:1;
   }
+}
+.container{
+  margin-top: -50px;
+  margin-bottom: 50px;
 }
 </style>
 </head>
@@ -148,7 +155,7 @@
 <div class="container p-3" style="">
 
   <p align=center class="display-5 p-1" >{{ post.body }}</p>
-<div align=center style="padding-top: 50px;">
+<div align=center style="padding-top: 0px;">
   <form class="" action="{% url 'detail' post.id %}" method="post">
   {% csrf_token %}
     <input class='btn btn-outline-primary'type="submit" name="button" value="Upvote {{ post.votes_total }}" style="border-radius:1;">
@@ -159,15 +166,17 @@
   {% if post.post_approved == False %}
   <form class="" action="{% url 'approve' post.id %}" method="post">
   {% csrf_token %}
-    <input class='btn btn-outline-success' type="submit" name="button2" value="Approve" style="border-radius:1;">
+    <input class='btn btn-outline-success' type="submit" name="button2" value="Approve {{ post.post_approvals }} " style="border-radius:1;">
 
   </form>
 </div>
+<br>
   {% endif %}
   {% endif %}
   {% if error %}
   {{ error }}
   {% endif %}
 </div>
+<br>
 </body>
 </html>

@@ -65,8 +65,15 @@ def detail(request, post_id):
 def approve(request, post_id):
     if request.method == 'POST':
         post = get_object_or_404(Post, pk=post_id)
-        post.post_approved = True
-        post.save()
-        return render(request, 'posts/detail.html', {'post': post})
+        approved_by_users = post.approved_by.split(',')
+        if request.user.username in approved_by_users:
+            return render(request, 'posts/detail.html', {'post': post,'error':'You have already approved'})
+        else:
+            post.approved_by = post.approved_by + request.user.username + ','
+            post.post_approvals += 1
+            if post.post_approvals == 3:
+                post.post_approved = True
+            post.save()
+            return render(request, 'posts/detail.html', {'post': post})
     else:
-            return render(request, 'posts/home.html')
+        return render(request, 'posts/home.html')

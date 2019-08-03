@@ -1,29 +1,171 @@
-{% extends 'base.html' %}
 
 
-{% block content %}
-<br>
-<h1 align=center>Create</h1>
-<hr>
-{% if error %}
-<b> {{ error }} </b>
-<br><br>
-{% endif %}
-<form action="{% url 'create' %}" method="POST">
-  {% csrf_token %}
-  <h4>Title:</h4>
-  <input type="text" name="title" placeholder="Enter Title:"><br>
-  <h4>Body:</h4>
-  <textarea name="body" rows="8" cols="80"></textarea>
-  <br>
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <input type='hidden' value='n' name='poi'>
-  <input type="checkbox" name="poi" value="y"><label for="poi"><h6> Do you want to post this anonymously?  </h6></label>
-  <br>
-  <br>
+	<style media="screen">
+		.wrap-contact100{
+			/* height: 700px;
+			width: 500px; */
+			margin: 100px;
+		}
+		button{
+			margin-top: 10px;
+		}
+	</style>
+	<title>Contact V16</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1' ">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<!-- <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css"> -->
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<!-- <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"> -->
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
+<div class="container">
+  <a class="navbar-brand nav-item-lg active" href="{% url 'home' %}"><h3>JPIS Forum</h3></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav ml-auto">
+      {% if user.is_authenticated %}
 
-  <input type="submit" name="" value="Post!" class="btn btn-primary">
+
+          <form id="log" action="{% url 'logout' %}" method="POST" >
+            {% csrf_token %}
+            <input type="hidden" name="" value="">
+            <li class="nav-item">
+            <a class="nav-link" href="javascript:{document.getElementById('log').submit()}">Logout</a>
+          </li>
+          </form>
+            <li class="nav-item">
+          <a class="nav-link" href="{% url 'create' %}">Post</a>
+        </li>
+          <span></span>
+            <li class="nav-item">
+          <a class="nav-link" href="{% url 'userpage' user.username %}"><i class="fa fa-user fa-lg"></i></a>
+        </li>
+      {% else %}
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+    </ul>
+    {% endif %}
+  </div>
+</div>
+</nav>
+
+	<div class="bg-container-contact100" style="background-image: url({% static 'images/bg-01.jpg' %})">
+		<!-- <div class="contact100-header flex-sb-m">
+			<a href="#" class="contact100-header-logo">
+				<img src="images/icons/logo.png" alt="LOGO">
+			</a>
+
+			<div>
+				<button class="btn-show-contact100">
+					Contact Us
+				</button>
+			</div>
+		</div> -->
+	</div>
+
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<div class="contact100-form-title" style="background-image: url({% static 'images/bg-02.jpg' %})">
+				<span>You be the change.</span>
+			</div>
+
+			<form action="{% url 'create' %}" method="POST"  class="contact100-form validate-form">
+        {% csrf_token %}
+				<div class="wrap-input100 validate-input">
+					<input id="name" class="input100" type="text" name="title" placeholder="Title">
+					<span class="focus-input100"></span>
+					<label class="label-input100" for="name">
+						<span class="lnr lnr-user m-b-2"></span>
+					</label>
+				</div>
 
 
-</form>
-{% endblock %}
+				<!-- <div class="wrap-input100 validate-input">
+					<input id="email" class="input100" type="text" name="email" placeholder="Eg. example@email.com">
+					<span class="focus-input100"></span>
+					<label class="label-input100" for="email">
+						<span class="lnr lnr-envelope m-b-5"></span>
+					</label>
+				</div>
+
+
+				<div class="wrap-input100 validate-input">
+					<input id="phone" class="input100" type="text" name="phone" placeholder="Eg. +1 800 000000">
+					<span class="focus-input100"></span>
+					<label class="label-input100" for="phone">
+						<span class="lnr lnr-smartphone m-b-2"></span>
+					</label>
+				</div> -->
+
+
+				<div class="wrap-input100 validate-input">
+					<textarea id="message" class="input100" name="body" placeholder="Description"></textarea>
+					<span class="focus-input100"></span>
+					<label class="label-input100 rs1" for="message">
+						<span class="lnr lnr-bubble"></span>
+					</label>
+				</div>
+        <input type='hidden' value='n' name='poi'>
+				<label for="poi"><h6> Do you want to post this anonymously?  </h6></label>
+		<input type="checkbox" name="poi" value="y">
+
+<!-- <br> -->
+<!-- <br>
+<br> -->
+
+				<div class="container-contact100-form-btn">
+					<button type='submit' class="contact100-form-btn">
+						 Post
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+
+
+<!--===============================================================================================-->
+	<script src="{% static 'js/main.js' %}"></script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-23581568-13');
+	</script>
+</body>
+</html>
