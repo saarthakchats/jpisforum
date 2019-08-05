@@ -152,6 +152,16 @@
     {% if error %}
     <h3 align='center'>No Posts to show :(</h3>
     {% endif %}
+    <div class="dropdown">
+  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+    Filter by
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="{% url 'home' %}">Most Voted</a>
+    <a class="dropdown-item" href="{% url 'most' %}">Implemented Posts</a>
+    <a class="dropdown-item" href="{% url 'latest' %}">Latest Posts</a>
+  </div>
+</div>
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         {% for post in posts.all %}

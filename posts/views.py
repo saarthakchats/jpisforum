@@ -77,3 +77,11 @@ def approve(request, post_id):
             return render(request, 'posts/detail.html', {'post': post})
     else:
         return render(request, 'posts/home.html')
+
+def most(request):
+    posts = Post.objects.all().filter(post_considered=True)
+    return render(request, 'posts/home.html', {'posts': posts})
+
+def latest(request):
+    posts = Post.objects.all().order_by('-pubdate').filter(post_approved=True)
+    return render(request, 'posts/home.html', {'posts': posts})

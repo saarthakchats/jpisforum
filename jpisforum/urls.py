@@ -8,4 +8,6 @@ urlpatterns = [
     path('', posts.views.home, name='home'),
     path('accounts/', include('accounts.urls')),
     path('posts/', include('posts.urls')),
+    path('implemented/', posts.views.most, name='most'),
+    path('latest/', posts.views.latest, name='latest'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
