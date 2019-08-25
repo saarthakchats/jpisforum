@@ -81,4 +81,4 @@ def userpage(request, user_name):
     num_considered_posts = len(considered_posts)
     num_other_posts = len(other_posts)
 
-    return render(request, 'accounts/userpage.html', {'man': man,'posts':posts,'num_posts':num_posts,'num_considered_posts':num_considered_posts,'num_other_posts':num_other_posts})
+    return render(request, 'accounts/userpage.html', {'man': man,'considered': considered_posts, 'posts':posts,'num_posts':num_posts,'num_considered_posts':num_considered_posts,'num_other_posts':num_other_posts})

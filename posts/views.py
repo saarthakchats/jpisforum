@@ -83,5 +83,8 @@ def most(request):
     return render(request, 'posts/home.html', {'posts': posts})
 
 def latest(request):
-    posts = Post.objects.all().order_by('-pubdate').filter(post_approved=True)
+    if request.user.is_staff:
+        posts = Post.objects.all().order_by('-pubdate')
+    else:
+        posts = Post.objects.all().order_by('-pubdate').filter(post_approved=True)
     return render(request, 'posts/home.html', {'posts': posts})

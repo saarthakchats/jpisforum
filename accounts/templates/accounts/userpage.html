@@ -131,6 +131,39 @@
         <hr>
         {% endif %}
         {% endfor %}
+        {% for post in considered.all %}
+        {% if post.anonymous == False %}
+        <div class="post-preview">
+          <a href="{% url 'detail' post.id %}">
+            <h2 class="post-title">
+              {{ post.title }}
+
+              <i class="fa fa-check" style="color: green;"></i>
+              
+            </h2>
+            <h6 class="text-small" style="color:green;">
+              {% if user.is_staff %}
+              {% if post.post_approved %}
+              This post is approved
+              {% endif %}
+              {% endif %}
+            </h6>
+            <h3 class="post-subtitle">
+              {{ post.preview }}...
+            </h3>
+          </a>
+          <p class="post-meta">Posted by
+            {% if post.anonymous %}
+            <a href="#">Anonymous</a>
+            {% else %}
+            <a href="{% url 'userpage' post.hunter %}">{{ post.hunter }}</a>
+            {% endif %}
+
+            on {{ post.pretty_date }}</p>
+        </div>
+        <hr>
+        {% endif %}
+        {% endfor %}
       </div>
     </div>
   </div>
