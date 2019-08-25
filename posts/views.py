@@ -8,10 +8,10 @@ def home(request):
     if request.user.is_authenticated:
 
         if request.user.is_staff:
-            posts = Post.objects.all().order_by('-votes_total')
+            posts = Post.objects.all().order_by('-pubdate')
             return render(request, 'posts/home.html', {'posts': posts})
         else:
-            posts = Post.objects.all().order_by('-votes_total').filter(post_approved=True)
+            posts = Post.objects.all().order_by('-pubdate').filter(post_approved=True)
             if len(posts) == 0:
                 error = True
             else:
@@ -84,7 +84,7 @@ def most(request):
 
 def latest(request):
     if request.user.is_staff:
-        posts = Post.objects.all().order_by('-pubdate')
+        posts = Post.objects.all().order_by('-votes_total')
     else:
-        posts = Post.objects.all().order_by('-pubdate').filter(post_approved=True)
+        posts = Post.objects.all().order_by('-votes_total').filter(post_approved=True)
     return render(request, 'posts/home.html', {'posts': posts})
