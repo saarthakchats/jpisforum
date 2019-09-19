@@ -26,7 +26,7 @@ SECRET_KEY = '!094jw6@_hnf-f^0uvuoz!o*o=#az3a0d#twy6(b^-f)murntw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["167.71.230.9"]
+ALLOWED_HOSTS = ["167.71.230.9","jpisforum.com","www.jpisforum.com"]
 
 
 # Application definition
