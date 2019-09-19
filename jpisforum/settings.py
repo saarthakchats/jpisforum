@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'jpisforum.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'JPISdb',
+        'NAME': 'jpisdb',
         'USER': 'samshi',
         'PASSWORD': 'samshi52',
         'HOST': 'localhost',
