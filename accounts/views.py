@@ -51,11 +51,18 @@ def genOTP(mail):
     multiplier1 = str(datetime.datetime.now()).split('.')[1]
     multiplier2 = str(len(mail) % 100)
     OTP = int(multiplier1+multiplier2)
-    subject = 'Your OTP'
-    message = str(OTP)
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = [mail,]
-    send_mail( subject, message, email_from, recipient_list )
+    # subject = 'Your OTP'
+    message = "Your OTP is" + str(OTP)
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login('jainsamyakbvs@gmail.com', 'samshi52')
+    # message = "Your OTP is " + id
+    server.sendmail('samyakjainbvs@gmail.com',mail, message)
+    # email_from = settings.EMAIL_HOST_USER
+    # recipient_list = [mail,]
+
+
+    # send_mail( subject, message, email_from, recipient_list )
     return OTP
 
 def verifyOTP(request):
