@@ -8,6 +8,7 @@ import smtplib
 from django.core.mail import send_mail
 from django.conf import settings
 # Create your views here.
+
 def signup(request):
     if request.method == 'POST':
         if request.POST['password'] == request.POST['confirmpass']:
@@ -17,12 +18,11 @@ def signup(request):
             except User.DoesNotExist:
                 mail = request.POST['email']
                 user = User.objects.create_user(request.POST['username'], password=request.POST['password'], email=mail)
-                global sign_up_code
                 sign_up_code = genOTP(mail)
+                print(sign_up_code)
                 register = Register(user=user, OTP=sign_up_code)
                 register.save()
-                print(sign_up_code)
-                return render(request,'accounts/verifyOTP.html')
+                return render(request,'accounts/verifyOTP.html/')
         else:
             return render(request, 'accounts/signup.html', {'error': "Passwords don't match"})
     else:
@@ -52,7 +52,7 @@ def genOTP(mail):
     multiplier2 = str(len(mail) % 100)
     OTP = int(multiplier1+multiplier2)
     # subject = 'Your OTP'
-    message = "Your OTP is" + str(OTP)
+    message = "Your OTP is " + str(OTP)
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     server.login('jainsamyakbvs@gmail.com', 'samshi52')
@@ -66,17 +66,22 @@ def genOTP(mail):
     return OTP
 
 def verifyOTP(request):
-    global sign_up_code
-    print(int(request.POST['OTP']),sign_up_code)
-    if int(request.POST['OTP']) == sign_up_code:
-        current_register = Register.objects.get(OTP=sign_up_code)
+    try:
+        current_user = User.objects.get(username = request.POST['user_username'])
+        current_register = Register.objects.get(user=current_user)
+    except:
+        error = 'Incorrect username/OTP'
+        return render(request,'accounts/verifyOTP.html', {'error':error})
+    print(int(request.POST['OTP']),current_register.OTP)
+    if int(request.POST['OTP']) == current_register.OTP:
+        current_register = Register.objects.get(OTP=current_register.OTP)
         user = User.objects.get(register=current_register)
         current_register.IsVerified = True
         current_register.save()
         auth.login(request, user)
         return redirect('home')
     else:
-        error = 'Incorrect OTP'
+        error = 'Incorrect username/OTP'
         return render(request,'accounts/verifyOTP.html', {'error':error})
 
 def userpage(request, user_name):

@@ -102,6 +102,8 @@ html,body{
 
    {% csrf_token %}
  <label class="sr-only">OTP</label>
+  <input type="text" name="user_username" id="inputPassword" class="form-control" placeholder="Username" required>
+ <br>
  <input type="text" name="OTP" id="inputPassword" class="form-control" placeholder="OTP" required>
  <br>
  <input class="btn btn-lg btn-primary btn-block" type="submit" name="" value="Verify">
