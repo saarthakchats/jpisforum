@@ -55,9 +55,9 @@ def genOTP(mail):
     message = "Your OTP is " + str(OTP)
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login('jainsamyakbvs@gmail.com', 'samshi52')
+    server.login('forum@jpischool.com', 'samsaar55')
     # message = "Your OTP is " + id
-    server.sendmail('samyakjainbvs@gmail.com',mail, message)
+    server.sendmail('forum@jpischool.com',mail, message)
     # email_from = settings.EMAIL_HOST_USER
     # recipient_list = [mail,]
 
