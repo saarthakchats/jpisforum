@@ -22,6 +22,8 @@ def signup(request):
                 print(sign_up_code)
                 register = Register(user=user, OTP=sign_up_code)
                 register.save()
+                user.is_active = False
+                user.save()
                 return render(request,'accounts/verifyOTP.html/')
         else:
             return render(request, 'accounts/signup.html', {'error': "Passwords don't match"})
@@ -77,6 +79,8 @@ def verifyOTP(request):
         current_register = Register.objects.get(OTP=current_register.OTP)
         user = User.objects.get(register=current_register)
         current_register.IsVerified = True
+        user.is_active = True
+        user.save()
         current_register.save()
         auth.login(request, user)
         return redirect('home')
