@@ -88,6 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'jpisdb',
         'USER': 'samshi',
+        'USER': 'sammy',
         'PASSWORD': 'samshi52',
         'HOST': 'localhost',
         'PORT': '',
